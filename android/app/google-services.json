@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "959045083241",
+    "project_id": "loja-virtual-app-d13a7",
+    "storage_bucket": "loja-virtual-app-d13a7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:959045083241:android:5299bf57d7753e8f22c2f8",
+        "android_client_info": {
+          "package_name": "marktinginapp.loja_virtual_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "959045083241-p9nlv6ktqfsqhto583500aqgmsl60sq2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB94UBXJlRx0Sl5pDdvZkcHqC3nY7-RxBI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "959045083241-p9nlv6ktqfsqhto583500aqgmsl60sq2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
