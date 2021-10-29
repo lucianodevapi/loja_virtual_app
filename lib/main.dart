@@ -1,12 +1,16 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:loja_virtual_app/models/user_manager.dart';
+import 'package:loja_virtual_app/screens/base/base_screen.dart';
+import 'package:loja_virtual_app/screens/login/login_screen.dart';
+import 'package:loja_virtual_app/screens/sign_up/signup_screen.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  FirebaseFirestore.instance.collection('teste').add({'teste': 'teste'});
   runApp(const MyApp());
 }
 
@@ -16,58 +20,40 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+    return ChangeNotifierProvider(
+      create: (_) => UserManager(),
+      lazy: false,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'App Loja Virtual',
+        theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+            elevation: 0,
+            color: Color.fromARGB(255, 4, 125, 141),
+          ),
+          primaryColor: const Color.fromARGB(255, 4, 125, 141),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 4, 125, 141),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
+        initialRoute: '/base',
+        onGenerateRoute: (settings) {
+          switch (settings.name) {
+            case '/base':
+              return MaterialPageRoute(builder: (_) => BaseScreen());
+            case '/signup':
+              return MaterialPageRoute(builder: (_) => SignUpScreen());
+            case '/login':
+              return MaterialPageRoute(builder: (_) => LoginScreen());
+            default:
+              return MaterialPageRoute(builder: (_) => BaseScreen());
+          }
+        },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
