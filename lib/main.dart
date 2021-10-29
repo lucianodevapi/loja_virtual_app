@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loja_virtual_app/models/product.dart';
+import 'package:loja_virtual_app/models/product_manager.dart';
 import 'package:loja_virtual_app/models/user_manager.dart';
 import 'package:loja_virtual_app/screens/base/base_screen.dart';
 import 'package:loja_virtual_app/screens/login/login_screen.dart';
+import 'package:loja_virtual_app/screens/product/product_detail_screen.dart';
 import 'package:loja_virtual_app/screens/sign_up/signup_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -25,9 +28,11 @@ class MyApp extends StatelessWidget {
         statusBarColor: Colors.transparent,
       ),
     );
-    return ChangeNotifierProvider(
-      create: (_) => UserManager(),
-      lazy: false,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => UserManager(), lazy: false),
+        ChangeNotifierProvider(create: (_) => ProductManager(), lazy: false),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'App Loja Virtual',
@@ -49,6 +54,10 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => SignUpScreen());
             case '/login':
               return MaterialPageRoute(builder: (_) => LoginScreen());
+            case '/product_detail':
+              return MaterialPageRoute(
+                  builder: (_) => ProductDetailScreen(
+                      product: settings.arguments as Product));
             default:
               return MaterialPageRoute(builder: (_) => BaseScreen());
           }
