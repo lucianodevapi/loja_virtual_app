@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:loja_virtual_app/models/cart_manager.dart';
 import 'package:loja_virtual_app/models/product.dart';
 import 'package:loja_virtual_app/models/product_manager.dart';
 import 'package:loja_virtual_app/models/user_manager.dart';
 import 'package:loja_virtual_app/screens/base/base_screen.dart';
+import 'package:loja_virtual_app/screens/cart/cart_screen.dart';
 import 'package:loja_virtual_app/screens/login/login_screen.dart';
 import 'package:loja_virtual_app/screens/product/product_detail_screen.dart';
 import 'package:loja_virtual_app/screens/sign_up/signup_screen.dart';
@@ -32,6 +34,12 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => UserManager(), lazy: false),
         ChangeNotifierProvider(create: (_) => ProductManager(), lazy: false),
+        ChangeNotifierProxyProvider<UserManager, CartManager>(
+          create: (_) => CartManager(),
+          lazy: false,
+          update: (_, userManager, cartManager) =>
+              cartManager!..updateUser(userManager),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -54,6 +62,8 @@ class MyApp extends StatelessWidget {
               return MaterialPageRoute(builder: (_) => SignUpScreen());
             case '/login':
               return MaterialPageRoute(builder: (_) => LoginScreen());
+            case '/cart':
+              return MaterialPageRoute(builder: (_) => const CartScreen());
             case '/product_detail':
               return MaterialPageRoute(
                   builder: (_) => ProductDetailScreen(

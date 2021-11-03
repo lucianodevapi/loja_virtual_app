@@ -10,6 +10,8 @@ class ProductsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color _color = Theme.of(context).primaryColor;
+
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -31,7 +33,7 @@ class ProductsScreen extends StatelessWidget {
                         productManager.search = search;
                       }
                     },
-                    child: Container(
+                    child: SizedBox(
                       width: constraints.biggest.width,
                       child: Text(
                         productManager.search,
@@ -86,6 +88,14 @@ class ProductsScreen extends StatelessWidget {
             },
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).pushNamed('/cart');
+        },
+        backgroundColor: Colors.white,
+        foregroundColor: _color,
+        child: const Icon(Icons.shopping_cart),
       ),
     );
   }

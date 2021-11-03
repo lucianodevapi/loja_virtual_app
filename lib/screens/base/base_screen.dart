@@ -18,22 +18,25 @@ class BaseScreen extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         children: [
           Scaffold(
-            drawer: CustomDrawer(),
+            drawer: const CustomDrawer(),
             appBar: AppBar(
               title: const Text('Início'),
+              centerTitle: true,
             ),
           ),
           const ProductsScreen(),
           Scaffold(
-            drawer: CustomDrawer(),
+            drawer: const CustomDrawer(),
             appBar: AppBar(
-              title: const Text('Meus Produtos'),
+              title: const Text('Meus Pedidos'),
+              centerTitle: true,
             ),
           ),
           Scaffold(
-            drawer: CustomDrawer(),
+            drawer: const CustomDrawer(),
             appBar: AppBar(
               title: const Text('Lojas'),
+              centerTitle: true,
             ),
           ),
         ],

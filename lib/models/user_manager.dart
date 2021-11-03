@@ -11,7 +11,7 @@ class UserManager extends ChangeNotifier {
   bool _loading = false;
   bool get isLoggedIn => userLogged.id!.isNotEmpty;
 
-  late UserApp userLogged;
+  UserApp userLogged = UserApp();
 
   UserManager() {
     _loadCurrentUser();
@@ -47,7 +47,7 @@ class UserManager extends ChangeNotifier {
   }) async {
     loading = true;
     try {
-      debugPrint('$userApp.email - $userApp.password');
+      //debugPrint('$userApp.email - $userApp.password');
       final UserCredential userCredential =
           await auth.createUserWithEmailAndPassword(
               email: userApp.email!, password: userApp.password!);

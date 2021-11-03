@@ -8,11 +8,11 @@ class UserApp {
   String? confirmPassword = '';
 
   UserApp({
-    this.id,
-    this.name,
-    this.email,
-    this.password,
-    this.confirmPassword,
+    this.id = '',
+    this.name = '',
+    this.email = '',
+    this.password = '',
+    this.confirmPassword = '',
   });
 
   UserApp.fromDocument(DocumentSnapshot<Object?> document) {
@@ -23,6 +23,9 @@ class UserApp {
 
   DocumentReference get firestoreReference =>
       FirebaseFirestore.instance.doc('users/$id');
+
+  CollectionReference get cartReference =>
+      firestoreReference.collection('cart');
 
   Future<void> saveData() async {
     await firestoreReference.set(toMap());

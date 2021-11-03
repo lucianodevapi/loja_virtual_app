@@ -1,0 +1,62 @@
+import 'package:flutter/material.dart';
+import 'package:loja_virtual_app/models/item_size.dart';
+import 'package:provider/provider.dart';
+import 'package:loja_virtual_app/models/product.dart';
+
+class SizeWidget extends StatelessWidget {
+  final ItemSize size;
+
+  const SizeWidget({
+    Key? key,
+    required this.size,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final product = context.watch<Product>();
+    final selected = size == product.selectedSize;
+    Color _color;
+    if (!size.hasStock) {
+      _color = Colors.red.withAlpha(50);
+    } else if (selected) {
+      _color = Theme.of(context).primaryColor;
+    } else {
+      _color = Colors.grey;
+    }
+
+    return GestureDetector(
+      onTap: () {
+        if (size.hasStock) {
+          product.selectedSize = size;
+        }
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border.all(
+            color: _color,
+          ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              color: _color,
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+              child: Text(
+                size.name,
+                style: const TextStyle(color: Colors.white),
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Text(
+                'R\$ ${size.price.toStringAsFixed(2)}',
+                style: TextStyle(color: _color),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
